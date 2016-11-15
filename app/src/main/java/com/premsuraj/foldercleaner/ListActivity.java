@@ -1,8 +1,11 @@
 package com.premsuraj.foldercleaner;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,20 +17,15 @@ import com.premsuraj.foldercleaner.model.DataModelManager;
 
 import java.util.List;
 
+import static android.content.Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
+
 public class ListActivity extends AppCompatActivity implements ListAdapter.OnDeleteClickListener {
 
-    static abstract class ITEMS {
-        public static final int FOLDERS = 1;
-        public static final int IGNORED = 2;
-    }
-
     public static final String KEY_WHICH = "which_to_show";
-
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private DataModelManager mDataManager;
     private DataModel mDataModel;
-
     private int which = ITEMS.FOLDERS;
 
     @Override
@@ -43,8 +41,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                onNewClicked();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,6 +52,19 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         mRecyclerView.setLayoutManager(mLayoutManager);
         mDataManager = new DataModelManager(this);
         mDataModel = mDataManager.get();
+    }
+
+    private void onNewClicked() {
+        if (which == ITEMS.FOLDERS)
+            pickNewFolder();
+        else if (which == ITEMS.IGNORED)
+            mRecyclerView.setAdapter(new ListAdapter(mDataModel.getTypesToIgnore(), this));
+    }
+
+    private void pickNewFolder() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        startActivityForResult(intent, 101);
     }
 
     @Override
@@ -111,5 +121,27 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
     protected void onPause() {
         super.onPause();
         mDataManager.update(mDataModel);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            Uri treeUri = data.getData();
+            getContentResolver().takePersistableUriPermission(treeUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            DocumentFile pickedDir = DocumentFile.fromTreeUri(this, treeUri);
+            String filePath = PathResolver.getPath(this, pickedDir.getUri());
+            final List<String> foldersToClean = mDataModel.getFoldersToClean();
+            foldersToClean.add(filePath);
+            ((ListAdapter) mRecyclerView.getAdapter()).setItems(foldersToClean);
+            mRecyclerView.getAdapter().notifyItemInserted(foldersToClean.size() - 1);
+            mDataModel.setFoldersToClean(foldersToClean);
+        }
+    }
+
+    static abstract class ITEMS {
+        public static final int FOLDERS = 1;
+        public static final int IGNORED = 2;
     }
 }
