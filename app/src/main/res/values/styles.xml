@@ -1,0 +1,76 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="SettingsLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/settings_content_margin_height</item>
+        <item name="android:layout_marginLeft">@dimen/settings_content_margin_side</item>
+        <item name="android:layout_marginRight">@dimen/settings_content_margin_side</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textSize">@dimen/settings_content_label_textSize</item>
+    </style>
+
+    <style name="SettingsValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/settings_content_margin_side</item>
+        <item name="android:layout_marginRight">@dimen/settings_content_margin_side</item>
+        <item name="android:layout_marginBottom">@dimen/settings_content_margin_height</item>
+        <item name="android:textSize">@dimen/settings_content_value_textSize</item>
+    </style>
+
+    <style name="SettingsMore">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/settings_content_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/settings_content_margin_side</item>
+        <item name="android:paddingRight">@dimen/settings_content_margin_side</item>
+        <item name="android:textSize">@dimen/settings_content_label_textSize</item>
+        <item name="android:drawableRight">@drawable/ic_settings_next</item>
+        <item name="android:drawableEnd">@drawable/ic_settings_next</item>
+    </style>
+
+    <style name="SettingsDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/settings_header_gray</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_height">@dimen/generic_button_height</item>
+        <item name="android:layout_marginTop">@dimen/generic_button_margin</item>
+        <item name="android:layout_marginBottom">@dimen/generic_button_margin</item>
+        <item name="android:layout_marginLeft">@dimen/generic_button_margin</item>
+        <item name="android:layout_marginRight">@dimen/generic_button_margin</item>
+        <item name="android:textSize">17.5sp</item>
+    </style>
+
+    <style name="Button.Dialog">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/dialog_button_height</item>
+        <item name="android:minWidth">@dimen/dialog_button_width</item>
+    </style>
+
+    <style name="Button.Dialog.Settings">
+        <item name="android:layout_width">@dimen/settings_button_width</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
