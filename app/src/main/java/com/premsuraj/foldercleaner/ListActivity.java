@@ -58,13 +58,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         if (which == ITEMS.FOLDERS)
             pickNewFolder();
         else if (which == ITEMS.IGNORED)
-            mRecyclerView.setAdapter(new ListAdapter(mDataModel.getTypesToIgnore(), this));
-    }
-
-    private void pickNewFolder() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-        startActivityForResult(intent, 101);
+            getNewIgnoredType();
     }
 
     @Override
@@ -123,25 +117,46 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         mDataManager.update(mDataModel);
     }
 
+    private void getNewIgnoredType() {
+        new IgnoredPathDialogBuilder().build(this, new IgnoredPathDialogBuilder.Callback<String>() {
+            @Override
+            public void execute(String data) {
+                final List<String> typesToIgnore = mDataModel.getTypesToIgnore();
+                typesToIgnore.add(data);
+                ((ListAdapter) mRecyclerView.getAdapter()).setItems(typesToIgnore);
+                mRecyclerView.getAdapter().notifyItemInserted(typesToIgnore.size() - 1);
+                mDataModel.setTypesToIgnore(typesToIgnore);
+            }
+        }, null).show();
+    }
+
+    private void pickNewFolder() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        startActivityForResult(intent, ITEMS.FOLDERS);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Uri treeUri = data.getData();
-            getContentResolver().takePersistableUriPermission(treeUri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            DocumentFile pickedDir = DocumentFile.fromTreeUri(this, treeUri);
-            String filePath = PathResolver.getPath(this, pickedDir.getUri());
-            final List<String> foldersToClean = mDataModel.getFoldersToClean();
-            foldersToClean.add(filePath);
-            ((ListAdapter) mRecyclerView.getAdapter()).setItems(foldersToClean);
-            mRecyclerView.getAdapter().notifyItemInserted(foldersToClean.size() - 1);
-            mDataModel.setFoldersToClean(foldersToClean);
+        if (requestCode == ITEMS.FOLDERS) {
+            if (resultCode == RESULT_OK) {
+                Uri treeUri = data.getData();
+                getContentResolver().takePersistableUriPermission(treeUri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                DocumentFile pickedDir = DocumentFile.fromTreeUri(this, treeUri);
+                String filePath = PathResolver.getPath(this, pickedDir.getUri());
+                final List<String> foldersToClean = mDataModel.getFoldersToClean();
+                foldersToClean.add(filePath);
+                ((ListAdapter) mRecyclerView.getAdapter()).setItems(foldersToClean);
+                mRecyclerView.getAdapter().notifyItemInserted(foldersToClean.size() - 1);
+                mDataModel.setFoldersToClean(foldersToClean);
+            }
         }
     }
 
     static abstract class ITEMS {
-        public static final int FOLDERS = 1;
-        public static final int IGNORED = 2;
+        public static final int FOLDERS = 1521;
+        public static final int IGNORED = 2372;
     }
 }
