@@ -20,8 +20,8 @@ public class CleanerScheduler {
                 new ComponentName(activity.getPackageName(), CleanerJob.class.getName()));
         jobBuilder.setPersisted(true)
                 .setRequiresCharging(true)
-                .setOverrideDeadline(DateUtils.DAY_IN_MILLIS);
-//                .setRequiresDeviceIdle(true);
+                .setOverrideDeadline(DateUtils.DAY_IN_MILLIS)
+                .setPeriodic(DateUtils.DAY_IN_MILLIS);
 
         return (scheduler.schedule(jobBuilder.build()) ==  JobScheduler.RESULT_SUCCESS);
     }
