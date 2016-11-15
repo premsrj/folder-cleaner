@@ -61,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        EditText edtDaysToKeep = (EditText) findViewById(R.id.edt_days_to_keep);
+        try {
+            getDataModelManager().get().setDaysToKeep(Integer.parseInt(edtDaysToKeep.getText().toString()));
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
     }
