@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "457390188451",
+    "firebase_url": "https://foldercleaner.firebaseio.com",
+    "project_id": "foldercleaner",
+    "storage_bucket": "foldercleaner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457390188451:android:79dac0fffdaa80b8",
+        "android_client_info": {
+          "package_name": "com.premsuraj.foldercleaner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457390188451-k4rjuol1m0t40ga513k6rgdh2341phdd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.premsuraj.foldercleaner",
+            "certificate_hash": "70CC2EF5E132D144B55B6E0E91084BB7235624AA"
+          }
+        },
+        {
+          "client_id": "457390188451-uf7uvjgpjih1muf11saeguthtubq2d1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt5tCRV6ceehH9m9jb41Ph6sA9yARZYz8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457390188451-uf7uvjgpjih1muf11saeguthtubq2d1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
