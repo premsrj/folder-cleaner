@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         EditText edtDaysToKeep = (EditText) findViewById(R.id.edt_days_to_keep);
         try {
             getDataModelManager().get().setDaysToKeep(Integer.parseInt(edtDaysToKeep.getText().toString()));
+            getDataModelManager().save();
         } catch (Exception ignored) {
-
         }
     }
 

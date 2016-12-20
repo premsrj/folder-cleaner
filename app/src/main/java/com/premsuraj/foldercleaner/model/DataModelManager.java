@@ -65,4 +65,10 @@ public class DataModelManager {
         mContext.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE).edit()
                 .putString(DataModel.PREFERENCES_KEY, jsonOfData).apply();
     }
+
+    public void save() {
+        String jsonOfData = new Gson().toJson(mModel);
+        mContext.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE).edit()
+                .putString(DataModel.PREFERENCES_KEY, jsonOfData).apply();
+    }
 }
