@@ -19,7 +19,8 @@ public class CleanerJob extends JobService {
             @Override
             public void onCleanerTaskDone(boolean isSuccess, int filesCleaned) {
                 jobFinished(mJobParameters, true);
-                Notifier.notify(CleanerJob.this, "Files cleaned", "Cleaned " + filesCleaned + " files");
+                if (filesCleaned > 0)
+                    Notifier.notify(CleanerJob.this, "Files cleaned", "Cleaned " + filesCleaned + " files");
             }
         }).execute();
         return true;
