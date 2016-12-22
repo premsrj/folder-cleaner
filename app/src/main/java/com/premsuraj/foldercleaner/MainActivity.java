@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.firebase.crash.FirebaseCrash;
 import com.premsuraj.foldercleaner.model.DataModelManager;
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this, "ca-app-pub-1564153878726419~4694288480");
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         if(hasPermission()) {
             mHasPermission = true;
@@ -54,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        NativeExpressAdView adView = (NativeExpressAdView) findViewById(R.id.adView);
+
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
     }
 
     @Override

@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.premsuraj.foldercleaner.model.DataModel;
 import com.premsuraj.foldercleaner.model.DataModelManager;
 
@@ -52,6 +54,10 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         mRecyclerView.setLayoutManager(mLayoutManager);
         mDataManager = new DataModelManager(this);
         mDataModel = mDataManager.get();
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void onNewClicked() {
