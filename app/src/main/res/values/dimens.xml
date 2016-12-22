@@ -20,4 +20,6 @@
     <dimen name="settings_content_value_textSize">14sp</dimen>
     <dimen name="settings_button_width">150dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="native_ad_width">350dp</dimen>
+    <dimen name="native_ad_height">100dp</dimen>
 </resources>

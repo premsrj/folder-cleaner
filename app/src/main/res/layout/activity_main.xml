@@ -65,12 +65,12 @@
 
     <com.google.android.gms.ads.NativeExpressAdView
         android:id="@+id/adView"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/native_ad_width"
+        android:layout_height="@dimen/native_ad_height"
         android:layout_below="@id/btn_clean_now"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        ads:adSize="350x100"
+        ads:adSize="@string/native_ad_size"
         ads:adUnitId="@string/native_ad_in_main" />
 
 </RelativeLayout>
