@@ -57,7 +57,8 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (mAdView != null)
+            mAdView.loadAd(adRequest);
     }
 
     private void onNewClicked() {

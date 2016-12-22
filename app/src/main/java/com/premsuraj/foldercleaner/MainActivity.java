@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         NativeExpressAdView adView = (NativeExpressAdView) findViewById(R.id.adView);
-
         AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request);
+        if (adView != null)
+            adView.loadAd(request);
     }
 
     @Override
