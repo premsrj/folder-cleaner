@@ -13,7 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class DataModelManager {
-    private static final String SHARED_PREF_NAME = "Cleaner";
+    public static final String SHARED_PREF_NAME = "Cleaner";
     private Context mContext;
     private DataModel mModel = null;
 
