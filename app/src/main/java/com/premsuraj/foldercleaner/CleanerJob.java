@@ -37,7 +37,7 @@ public class CleanerJob extends JobService {
                         Bundle params = new Bundle();
                         params.putLong(FirebaseAnalytics.Param.VALUE, timeSinceSecs);
                         FirebaseAnalytics.getInstance(CleanerJob.this)
-                                .logEvent("time_since_clean", params);
+                                .logEvent("seconds_since_clean", params);
                     }
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
