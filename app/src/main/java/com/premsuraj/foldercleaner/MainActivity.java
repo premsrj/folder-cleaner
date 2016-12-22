@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.premsuraj.foldercleaner.model.DataModelManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             getDataModelManager().get().setDaysToKeep(Integer.parseInt(edtDaysToKeep.getText().toString()));
             getDataModelManager().save();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
         }
     }
 
