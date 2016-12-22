@@ -2,7 +2,13 @@ package com.premsuraj.foldercleaner;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
+import com.premsuraj.foldercleaner.model.DataModelManager;
 
 /**
  * Created by Premsuraj
@@ -21,6 +27,21 @@ public class CleanerJob extends JobService {
                 jobFinished(mJobParameters, true);
                 if (filesCleaned > 0)
                     Notifier.notify(CleanerJob.this, "Files cleaned", "Cleaned " + filesCleaned + " files");
+
+                try {
+                    SharedPreferences preferences = getSharedPreferences(DataModelManager.SHARED_PREF_NAME, MODE_PRIVATE);
+                    long lastTime = preferences.getLong("lastclean", 0);
+                    if (lastTime != 0) {
+                        long timeSinceSecs = (lastTime - System.currentTimeMillis()) / 1000;
+
+                        Bundle params = new Bundle();
+                        params.putLong(FirebaseAnalytics.Param.VALUE, timeSinceSecs);
+                        FirebaseAnalytics.getInstance(CleanerJob.this)
+                                .logEvent("time_since_clean", params);
+                    }
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                }
             }
         }).execute();
         return true;
