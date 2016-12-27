@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.premsuraj.foldercleaner.model.DataModel;
 import com.premsuraj.foldercleaner.model.DataModelManager;
 
@@ -29,6 +30,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
     private DataModelManager mDataManager;
     private DataModel mDataModel;
     private int which = ITEMS.FOLDERS;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,17 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         AdRequest adRequest = new AdRequest.Builder().build();
         if (mAdView != null)
             mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad));
+        requestNewInterstitial();
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     private void onNewClicked() {
@@ -122,6 +135,14 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
     protected void onPause() {
         super.onPause();
         mDataManager.update(mDataModel);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     private void getNewIgnoredType() {

@@ -82,4 +82,5 @@
     <string name="test_native_ad_in_main">ca-app-pub-3940256099942544/1072772517</string>
     <string name="native_ad_in_main">ca-app-pub-1564153878726419/3658207288</string>
     <string name="native_ad_size">350x100</string>
+    <string name="interstitial_ad">ca-app-pub-1564153878726419/3218738481</string>
 </resources>
