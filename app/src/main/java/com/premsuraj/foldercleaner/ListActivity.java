@@ -41,6 +41,12 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
 
         which = getIntent().getIntExtra(KEY_WHICH, ITEMS.FOLDERS);
 
+        if (which == ITEMS.FOLDERS) {
+            setTitle("Folders to watch");
+        } else {
+            setTitle("File types to ignore");
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,10 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnDel
         mDataManager = new DataModelManager(this);
         mDataModel = mDataManager.get();
 
+        loadAds();
+    }
+
+    private void loadAds() {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         if (mAdView != null)
