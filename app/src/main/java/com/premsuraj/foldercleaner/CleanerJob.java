@@ -39,6 +39,7 @@ public class CleanerJob extends JobService {
                         FirebaseAnalytics.getInstance(CleanerJob.this)
                                 .logEvent("seconds_since_clean", params);
                     }
+                    preferences.edit().putLong("lastclean", System.currentTimeMillis()).apply();
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
