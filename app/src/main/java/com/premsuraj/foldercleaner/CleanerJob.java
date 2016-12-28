@@ -32,12 +32,12 @@ public class CleanerJob extends JobService {
                     SharedPreferences preferences = getSharedPreferences(DataModelManager.SHARED_PREF_NAME, MODE_PRIVATE);
                     long lastTime = preferences.getLong("lastclean", 0);
                     if (lastTime != 0) {
-                        long timeSinceSecs = (lastTime - System.currentTimeMillis()) / 1000;
+                        long timeSinceMins = (lastTime - System.currentTimeMillis()) / (1000 * 60);
 
                         Bundle params = new Bundle();
-                        params.putLong(FirebaseAnalytics.Param.VALUE, timeSinceSecs);
+                        params.putLong(FirebaseAnalytics.Param.VALUE, timeSinceMins);
                         FirebaseAnalytics.getInstance(CleanerJob.this)
-                                .logEvent("seconds_since_clean", params);
+                                .logEvent("minutes_since_clean", params);
                     }
                     preferences.edit().putLong("lastclean", System.currentTimeMillis()).apply();
                 } catch (Exception e) {
